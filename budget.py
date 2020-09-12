@@ -101,21 +101,30 @@ def get_perc(values: list):
 
 def create_spend_chart(categories):
     result = 'Percentage spent by category\n'
-    
+    names = [category.name for category in categories]
     withdrawals = [category.get_withdrawals() for category in categories]
     perc = get_perc(withdrawals)
     # print('Perc:' + str(perc))
     next_line = '          \n'
+    result += '100|' + next_line
 
-    for number in range(100, -1, -10):
-
+    for number in range(90, 9, -10):
+        result += ' ' + str(number) + '|'
+        o_index = [1, 4, 7]
+        line = [' ' for _ in range(10)]
         if number <= max(perc):
-            pass
+            for index in range(len(perc)):
+                if number <= perc[index]:
+                    line[o_index[index]] = 'o'
 
-        
-        result += str(number) + '|' + next_line
+        result += ''.join(line) + '\n'
+    result += '  0|' + ' o  o  o ' + '\n'
+    result += '    ----------'
 
-    
+    # for index in range(max(names, len)):
+
+
+    return result
         
 
 
