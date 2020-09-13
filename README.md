@@ -57,7 +57,7 @@ Percentage spent by category
 
 ### Testing 
 
-The unit tests(test case) for this project are in test `test_module.py`. The tests will run automatically when the main.py gets executed.
+The unit tests(test case) for this project are in `test_module.py`. The tests will run automatically when the main.py gets executed.
 
 ### Note
 
