@@ -1,4 +1,4 @@
-### Assignment
+### Mini Project - Budget App
 
 Complete the `Category` class in `budget.py`. It should be able to instantiate objects based on different budget categories like *food*, *clothing*, and *entertainment*. When objects are created, they are passed in the name of the category. The class should have an instance variable called `ledger` that is a list. The class should also contain the following methods:
 
@@ -55,16 +55,10 @@ Percentage spent by category
         g     
 ```
 
-The unit tests for this project are in `test_module.py`.
-
-### Development
-
-Write your code in `budget.py`. For development, you can use `main.py` to test your `Category` class. Click the "run" button and `main.py` will run.
-
 ### Testing 
 
-We imported the tests from `test_module.py` to `main.py` for your convenience. The tests will run automatically whenever you hit the "run" button.
+The unit tests(test case) for this project are in test `test_module.py`. The tests will run automatically when the main.py gets executed.
 
-### Submitting
+### Note
 
-Copy your project's URL and submit it to freeCodeCamp.
+This project has been done under @freecodecamps Scientific Computing with Python certification.
