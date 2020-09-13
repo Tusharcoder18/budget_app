@@ -6,13 +6,11 @@ class Category:
         self.name = name
     
     def deposit(self, amount, desc: str = ''):
-        if type(amount) == int: amount = str(amount) + '.00'
-        self.ledger.append({'amount': str(amount), 'description': desc})
+        self.ledger.append({'amount': float(amount), 'description': desc})
     
     def withdraw(self, amount, desc: str = ''):
         if self.check_funds(amount):
-            if type(amount) == int: amount = str(amount) + '.00'
-            self.ledger.append({'amount': '-' + str(amount), 'description': desc})
+            self.ledger.append({'amount': float(-amount), 'description': desc})
             return True
         
         return False
@@ -35,7 +33,7 @@ class Category:
 
     def check_funds(self, amount: float):
         balance = self.get_balance()
-        return amount < balance
+        return balance >= amount
 
     def title(self):
         result = ''
@@ -62,7 +60,11 @@ class Category:
         result += self.title()
         for tran in self.ledger:
             desc = tran['description']
-            amount = str(tran['amount'])
+            amount = str(tran['amount']).split('.')
+            if len(amount[-1]) == 1 and amount[-1] == '0':
+                amount = amount[0] + '.00'
+            else:
+                amount = amount[0] + '.' + amount[-1]
             if len(desc) < 23:
                 space = self.calc_space(desc, amount)
                 result += desc
@@ -88,11 +90,9 @@ class Category:
 
 def get_perc(values: list):
     total = sum(values)
-    # print('Withdrawals:' + str(values))
-    # print('Total:' + str(total))
     perc = []
     for value in values:
-        perc.append(round((value / total)*100, -1))
+        perc.append(round((value / total)*100, None))
     return perc
 
 
@@ -118,10 +118,21 @@ def create_spend_chart(categories):
                     line[o_index[index]] = 'o'
 
         result += ''.join(line) + '\n'
-    result += '  0|' + ' o  o  o ' + '\n'
-    result += '    ----------'
+    result += '  0|' + ' o  o  o ' + ' \n'
+    result += '    ----------\n'
 
-    # for index in range(max(names, len)):
+    
+    name_index = [5, 8, 11]
+    for index in range(max([len(name) for name in names])):
+        line = [' ' for _ in range(14)]
+        for i in range(3):
+            if index <= (len(names[i])-1):
+                line[name_index[i]] = names[i][index]
+        if index != max([len(name) for name in names])-1:
+            result += ''.join(line) + '\n'
+        else:
+            result += ''.join(line)
+    
 
 
     return result
